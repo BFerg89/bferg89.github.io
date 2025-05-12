@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>VancouverCurrent</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/main.css">
 </head>
 <body>
@@ -22,8 +25,12 @@
                 <div class="overview-box">
                     <div class="overview-left">
                         <h2>Overview</h2>
-                        <h1>12</h1>
-                        <h3>Overcast</h3>
+                        <strong id="currentTemp">Loading..</strong>
+                        <h1 id="weatherCondition">Overcast</h1>
+                    </div>
+                    <div class="overview-right">
+                        <h2>High: 15 Low: 10</h2>
+                        <h2>Air Quality: 20 - Good</h2>
                     </div>
                 </div>
                 <div class="lower">
@@ -60,5 +67,6 @@
             </div>
         </main>
     </div>
+    <script src="index.js"></script>
 </body>
 </html>

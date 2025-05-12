@@ -1,7 +1,8 @@
 body {
     background-color: rgba(94, 94, 94, 1);
     margin: 0;
-    font-family: sans-serif;
+    font-family: "Work Sans", sans-serif;
+    font-weight: 500;
 }
 
 .content {
@@ -12,15 +13,35 @@ body {
 }
 
 .overview-box {
+    display: flex;
+    justify-content: space-between;
+    gap: 2em;
     border-radius: 10px;
     width: 100vw;
     height: 30vh;
     margin: 4em 4em 0em 4em;
-    background-color: rgba(125, 120, 120, 1);
+    background-color: rgba(0, 0, 0, 0.4);
+    color: white;
 }
 
 .overview-left {
     margin: 2em;
+    margin-top: 0.5em;
+    font-size: 1.2em;
+}
+
+.overview-right {
+    margin: 4em;
+    margin-top: 5em;
+}
+
+.overview-left strong{
+    font-size: 4em;
+    color: orange;
+    font-family: "Work Sans", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 700;
+    font-style: normal;
 }
 
 .header-left {
