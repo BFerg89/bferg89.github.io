@@ -79,6 +79,12 @@ body {
     border-style: solid;
     border-color: rgba(125, 120, 120, 1);
     box-sizing: border-box;
+    padding: 1em;
+}
+
+.forecast-box canvas {
+    width: 100% !important;
+    height: 100% !important;
 }
 
 
