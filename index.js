@@ -58,14 +58,22 @@ async function fetchForecastAndRenderChart() {
     const forecastDays = data.days.slice(1, 6); // Skip today, get next 5 days
 
     const labels = forecastDays.map(day => {
-      const date = new Date(day.datetime);
+      const [year, month, dayNum] = day.datetime.split('-').map(Number);
+      const date = new Date(year, month - 1, dayNum);
       return date.toLocaleDateString('en-US', { weekday: 'short' });
     });
 
     const highs = forecastDays.map(day => day.tempmax);
     const lows = forecastDays.map(day => day.tempmin);
 
-    const ctx = document.getElementById('forecastChart').getContext('2d');
+    const canvas = document.getElementById('forecastChart');
+    const ctx = canvas.getContext('2d');
+
+    // Scale for high-DPI screens
+  const dpr = window.devicePixelRatio || 1;
+  canvas.width = canvas.clientWidth * dpr;
+  canvas.height = canvas.clientHeight * dpr;
+  ctx.scale(dpr, dpr);
     new Chart(ctx, {
       type: 'line',
       data: {
@@ -77,7 +85,9 @@ async function fetchForecastAndRenderChart() {
             borderColor: 'orange',
             backgroundColor: 'rgba(255,165,0,0.2)',
             borderWidth: 2,
-            pointRadius: 3,
+            pointRadius: 4,
+            pointBackgroundColor: 'white',
+            pointBorderColor: 'orange'
           },
           {
             label: 'Low (°C)',
@@ -85,7 +95,9 @@ async function fetchForecastAndRenderChart() {
             borderColor: 'skyblue',
             backgroundColor: 'rgba(135,206,235,0.2)',
             borderWidth: 2,
-            pointRadius: 3,
+            pointRadius: 4,
+            pointBackgroundColor: 'white',
+            pointBorderColor: 'skyblue'
           }
         ]
       },
@@ -107,6 +119,7 @@ async function fetchForecastAndRenderChart() {
 // Fetch now
 fetchCurrentWeather();
 fetchForecastAndRenderChart();
+
 
 // Auto-refresh every 5 minutes (300,000 ms)
 setInterval(fetchCurrentWeather, 300000);

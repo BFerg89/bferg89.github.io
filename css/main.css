@@ -14,12 +14,14 @@ body {
 
 .overview-box {
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-between;
+    align-items: center;
     gap: 2em;
     border-radius: 10px;
     width: 100vw;
-    height: 30vh;
-    margin: 4em 4em 0em 4em;
+    min-height: 25vh;
+    margin: 2em 4em 0em 4em;
     background-color: rgba(0, 0, 0, 0.4);
     color: white;
 }
@@ -46,7 +48,7 @@ body {
 
 .header-left {
     margin-left: 2em;
-    margin-top: 2em;
+    margin-top: 1em;
     max-width: 15%;
 }
 
