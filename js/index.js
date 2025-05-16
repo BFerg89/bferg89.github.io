@@ -21,31 +21,43 @@ const weatherCodes = {
 };
 
 async function fetchCurrentWeather() {
+  const cacheKey = 'cachedWeather';
+  const cacheExpiryKey = 'cachedWeatherExpiry';
+  const now = Date.now();
+
+  const cachedData = localStorage.getItem(cacheKey);
+  const cacheExpiry = localStorage.getItem(cacheExpiryKey);
+
+  if (cachedData && cacheExpiry && now < parseInt(cacheExpiry)) {
+    const weather = JSON.parse(cachedData);
+    updateWeatherDisplay(weather.temp, weather.condition);
+    return;
+  }
+
   try {
     const url = `https://api.tomorrow.io/v4/weather/realtime?location=${encodeURIComponent(city)}&apikey=${tmrApiKey}`;
-    const response = await fetch(url, {
-      method: 'GET',
-      headers: { accept: 'application/json' }
-    });
-
+    const response = await fetch(url);
     if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
 
     const data = await response.json();
-    const temperature = data.data.values.temperature;
-    const code = data.data.values.weatherCode;
-    const condition = weatherCodes[code] || "Unknown";
+    const temp = Math.round(data.data.values.temperature);
+    const conditionCode = data.data.values.weatherCode;
+    const condition = weatherCodes[conditionCode] || "Unknown";
 
-    const currentTemp = `${Math.round(temperature)}°C`;
-    const currentCondition = `${condition}`;
+    // Save to cache
+    localStorage.setItem(cacheKey, JSON.stringify({ temp, condition }));
+    localStorage.setItem(cacheExpiryKey, now + 5 * 60 * 1000); // 5 minutes
 
-    document.getElementById("currentTemp").textContent = currentTemp;
-    document.getElementById("weatherCondition").textContent = currentCondition;
-
+    updateWeatherDisplay(temp, condition);
   } catch (error) {
     console.error('Failed to fetch weather data:', error);
-    document.getElementById("currentTemp").textContent = "Error";
-    document.getElementById("weatherCondition").textContent = "Error";
+    updateWeatherDisplay("Error", "Error");
   }
+}
+
+function updateWeatherDisplay(temp, condition) {
+  document.getElementById("currentTemp").textContent = `${temp}°C`;
+  document.getElementById("weatherCondition").textContent = condition;
 }
 
 async function fetchForecastAndRenderChart() {
