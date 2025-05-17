@@ -26,6 +26,7 @@ body {
     display: flex;
     flex-direction: column;
     gap: 2em;
+    font-size: 1.2em;
 }
 
 .current, .hourly {
@@ -33,6 +34,8 @@ body {
     background-color: rgba(0, 0, 0, 0.4);
     border-radius: 10px;
     padding: 1em 2em 1em 2em;
+    display: flex;
+    flex-direction: column;
 }
 
 .right {
@@ -41,3 +44,53 @@ body {
     border-radius: 10px;
     padding: 1em 2em 1em 2em;
 }
+
+button {
+    background: none;
+	color: inherit;
+	border: none;
+	padding: 0;
+	font: inherit;
+	cursor: pointer;
+	outline: inherit;
+}
+.dropbtn {
+    background-color: grey;
+    border-radius: 10px;
+    border: none;
+    padding: 16px;
+    font-size: medium;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 6px 8px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content button {
+  color: black;
+  padding: 6px 8px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content a:hover {background-color: #ddd;}
+.dropdown-content button:hover {background-color: #ddd;}
+.dropdown:hover .dropdown-content {display: block;}
+.dropdown:hover .dropbtn {background-color: #3e8e41;}
