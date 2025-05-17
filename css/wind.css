@@ -45,15 +45,6 @@ body {
     padding: 1em 2em 1em 2em;
 }
 
-button {
-    background: none;
-	color: inherit;
-	border: none;
-	padding: 0;
-	font: inherit;
-	cursor: pointer;
-	outline: inherit;
-}
 .dropbtn {
     background-color: grey;
     border-radius: 10px;
@@ -83,14 +74,12 @@ button {
   display: block;
 }
 
-.dropdown-content button {
-  color: black;
-  padding: 6px 8px;
-  text-decoration: none;
-  display: block;
+.station-row {
+  display: flex;
+  align-items: center;
+  gap: 1em;
 }
 
 .dropdown-content a:hover {background-color: #ddd;}
-.dropdown-content button:hover {background-color: #ddd;}
 .dropdown:hover .dropdown-content {display: block;}
 .dropdown:hover .dropbtn {background-color: #3e8e41;}
