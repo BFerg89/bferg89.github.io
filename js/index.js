@@ -115,9 +115,14 @@ async function fetchForecastAndRenderChart() {
       },
       options: {
         responsive: true,
-        plugins: { legend: { labels: { color: 'white' } } },
+        plugins: { legend: { labels: { color: 'white' } }, title: {display: true,
+      text: '\u00A0\u00A0\u00A0Forecast',
+      color: 'white',
+      font: {size: 25},
+      align: 'start',
+      padding: {top: 10, bottom: 5}} },
         scales: {
-          x: { ticks: { color: 'white' } },
+          x: { ticks: { color: 'white', font: {size: 16} } },
           y: { ticks: { color: 'white' }, beginAtZero: false }
         }
       }

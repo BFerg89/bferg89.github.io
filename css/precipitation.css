@@ -1,0 +1,46 @@
+body {
+    background-color: rgba(94, 94, 94, 1);
+    margin: 0;
+    font-family: "Work Sans", sans-serif;
+    font-weight: 500;
+    color: white;
+}
+
+.header-left {
+    margin-left: 4em;
+    margin-top: 1em;
+    max-width: 15%;
+}
+
+.content {
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+    padding: 2em 4em 2em 4em;
+    height: 83vh;
+    gap: 2em;
+}
+
+.left {
+    width: 50vw;
+    display: flex;
+    flex-direction: column;
+    gap: 2em;
+    font-size: 1.2em;
+}
+
+.current, .hourly {
+    flex: 1;
+    background-color: rgba(0, 0, 0, 0.4);
+    border-radius: 10px;
+    padding: 1em 2em 1em 2em;
+    display: flex;
+    flex-direction: column;
+}
+
+.right {
+    width: 50vw;
+    background-color: rgba(0, 0, 0, 0.4);
+    border-radius: 10px;
+    padding: 1em 2em 1em 2em;
+}
