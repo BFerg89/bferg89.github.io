@@ -4,8 +4,45 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>VancouverCurrent - Tides</title>
+    <link rel="preconnect" ref="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@100..900&display=swap" rel="stylesheet"/>
+    <link rel="stylesheet" href="css/tides.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/luxon"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-luxon"></script>
 </head>
 <body>
-    <h1>Tides</h1>
+    <div class="wrap">
+        <header>
+            <div class="header-left">
+                <a href="index.html">
+                <img src="Design/logo.svg" alt="VancouverCurrent Logo" />
+                </a>
+            </div>
+        </header>
+
+        <main>
+            <div class="content">
+                <div class="top">
+                    <div class="today-left">
+                        <h2>Today</h2>
+                        <div id="todayStats">
+                            <p>Loading...</p>
+                        </div>
+                    </div>
+                    <div class="today-right">
+                        <canvas id="todayChart"></canvas>
+                    </div>
+                </div>
+                <div class="bottom">
+                    <h2>Future</h2>
+                    <canvas id="tideChart"></canvas>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script src="js\tides.js"></script>
 </body>
 </html>
