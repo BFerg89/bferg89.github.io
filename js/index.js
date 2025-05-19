@@ -1,5 +1,6 @@
 const tmrApiKey = 'NubI1wXPPQa6xf4bFjzcg8nH3ss2CjDD';
 const visApiKey = '54N5M9USVSFDLKR6HQQ5MJE72';
+const airKey = 'd840f968-fc34-45bb-bd6b-1f063ffbf32d';
 const city = '49.2827,-123.1207';
 
 const weatherCodes = {
@@ -55,9 +56,86 @@ async function fetchCurrentWeather() {
   }
 }
 
+async function fetchTodayHighLow() {
+  try {
+    const url = `https://api.tomorrow.io/v4/weather/forecast?location=${encodeURIComponent(city)}&apikey=${tmrApiKey}`;
+    const response = await fetch(url);
+    if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
+
+    const data = await response.json();
+    const today = data.timelines.daily[0].values;
+    const high = Math.round(today.temperatureMax);
+    const low = Math.round(today.temperatureMin);
+
+    document.getElementById("highLow").textContent = `High: ${high}° Low: ${low}°`;
+  } catch (error) {
+    console.error('Failed to fetch high/low temps from Tomorrow.io:', error);
+  }
+}
+
+async function fetchAirQuality() {
+  try {
+    const url = `https://api.airvisual.com/v2/nearest_city?key=${airKey}`;
+    const response = await fetch(url);
+    if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
+
+    const data = await response.json();
+    const aqi = data.data.current.pollution.aqius;
+    let quality = "Unknown";
+    if (aqi <= 50) quality = "Good";
+    else if (aqi <= 100) quality = "Moderate";
+    else if (aqi <= 150) quality = "Unhealthy for Sensitive Groups";
+    else if (aqi <= 200) quality = "Unhealthy";
+    else if (aqi <= 300) quality = "Very Unhealthy";
+    else quality = "Hazardous";
+
+    document.getElementById("airQuality").textContent = `Air Quality: ${aqi} – ${quality}`;
+  } catch (error) {
+    console.error('Failed to fetch AQI from IQAir:', error);
+  }
+}
+
 function updateWeatherDisplay(temp, condition) {
-  document.getElementById("currentTemp").textContent = `${temp}°C`;
+  const tempElement = document.getElementById("currentTemp");
+  tempElement.textContent = `${temp}°C`;
   document.getElementById("weatherCondition").textContent = condition;
+
+  // Reset style
+  tempElement.style.color = 'white';
+
+  // Set color based on condition
+  switch (condition) {
+    case "Clear":
+    case "Mostly Clear":
+      tempElement.style.color = 'orange';
+      break;
+    case "Partly Cloudy":
+    case "Mostly Cloudy":
+      tempElement.style.color = 'skyblue';
+      break;
+    case "Cloudy":
+      tempElement.style.color = 'gray';
+      break;
+    case "Rain":
+    case "Light Rain":
+    case "Heavy Rain":
+      tempElement.style.color = 'dodgerblue';
+      break;
+    case "Snow":
+    case "Light Snow":
+    case "Heavy Snow":
+      tempElement.style.color = 'white';
+      break;
+    case "Thunderstorm":
+      tempElement.style.color = 'plum';
+      break;
+    case "Fog":
+    case "Light Fog":
+      tempElement.style.color = 'lightgray';
+      break;
+    default:
+      tempElement.style.color = 'white';
+  }
 }
 
 async function fetchForecastAndRenderChart() {
@@ -136,6 +214,8 @@ async function fetchForecastAndRenderChart() {
 // Fetch now
 fetchCurrentWeather();
 fetchForecastAndRenderChart();
+fetchTodayHighLow();
+fetchAirQuality();
 
 
 // Auto-refresh every 5 minutes (300,000 ms)
