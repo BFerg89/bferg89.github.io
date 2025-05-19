@@ -1,37 +1,41 @@
 body {
-    background-color: rgba(94, 94, 94, 1);
-    margin: 0;
-    font-family: "Work Sans", sans-serif;
-    font-weight: 500;
-    color: white;
+  background-color: rgba(94, 94, 94, 1);
+  margin: 0;
+  font-family: "Work Sans", sans-serif;
+  font-weight: 500;
+  color: white;
+}
+
+* {
+  box-sizing: border-box;
 }
 
 .header-left {
-    margin-left: 4em;
-    margin-top: 1em;
-    max-width: 15%;
+  margin-left: 4em;
+  margin-top: 1em;
+  max-width: 15%;
 }
 
 .content {
-    display: flex;
-    flex-direction: column;
-    height: 83vh;
-    align-items: center;
-    padding: 2em 6em 2em 6em;
-    gap: 2em;
+  display: flex;
+  flex-direction: column;
+   height: calc(100vh - 6em); /* replaces 83vh */
+  align-items: center;
+  padding: 2em 6em;
+  gap: 2em;
+  width: 100%;
 }
 
-
 .top {
-    display: flex;
-    flex-direction: row;
-    gap: 2em;
-    background-color: rgba(0, 0, 0, 0.4);
-    width: 100%;
-    flex: 1;
-    border-radius: 10px;
-    padding: 1em 2em;
-    overflow: hidden;
+  display: flex;
+  flex-direction: row;
+  gap: 2em;
+  background-color: rgba(0, 0, 0, 0.4);
+  width: 100%;
+  height: 45%; /* slightly reduced from 40% */
+  border-radius: 10px;
+  padding: 1em 2em;
+  overflow: hidden;
 }
 
 .today-left {
@@ -44,11 +48,10 @@ body {
 
 .today-right {
   flex: 1;
-}
-
-#todayChart {
-  width: 100% !important;
-  height: 100% !important;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  padding-bottom: 1em; /* space for x-axis labels */
 }
 
 .bottom {
@@ -56,35 +59,69 @@ body {
   width: 100%;
   flex: 1;
   border-radius: 10px;
-  padding: 2em 2em;
+  padding: 2em;
   display: flex;
   flex-direction: column;
   overflow: hidden;
+  min-width: 0;
+  padding-bottom: 3em;
 }
 
 .bottom h2 {
-    margin-top: 0;
-    margin-bottom: 0.5em;
+  margin-top: 0;
+  margin-bottom: 0.5em;
 }
 
 canvas {
   width: 100% !important;
-  max-width: 100%;
-  height: 300px !important;
+  height: auto !important;
+  flex-grow: 1;
 }
 
-.today-left strong{
-    font-size: 2em;
-    font-family: "Work Sans", sans-serif;
-    font-optical-sizing: auto;
-    font-weight: 650;
-    font-style: normal;
+#todayChart,
+#tideChart {
+  flex-grow: 1;
+  width: 100% !important;
+  height: 100% !important;
 }
 
-.today-left p{
-    font-size: 1.5em;
-    font-family: "Work Sans", sans-serif;
-    font-optical-sizing: auto;
-    font-weight: 600;
-    font-style: normal;
+.today-left strong {
+  font-size: 2em;
+  font-family: "Work Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 650;
+  font-style: normal;
+}
+
+.today-left p {
+  font-size: 1.5em;
+  font-family: "Work Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 600;
+  font-style: normal;
+}
+
+@media (max-height: 800px) {
+  .top {
+    height: 35%;
+  }
+
+  .today-left {
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: left;
+  }
+
+  .bottom {
+    padding: 3em;
+  }
+
+  .today-left {
+    width: 40%;
+  }
+
+  .today-left p,
+  .today-left strong {
+    font-size: 1em;
+  }
 }
