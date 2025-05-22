@@ -60,8 +60,7 @@ body {
     width: calc(100vw - 4em);
 }
 .categories-box {
-    display: grid;
-    grid-template-columns: repeat(3,1fr);
+    display: flex;
     gap: 2em;
     background-color: rgba(125, 120, 120, 0.1);
     width: calc(50% - 1em);
@@ -104,14 +103,15 @@ body {
 }
 
 .categories-box img {
-    width: 50%;
+    width: 100%;
     height: auto;
     object-fit: contain;
-    margin: -1.5em auto 0 auto;
+    margin: auto;
 }
 
 .categories-box h3 {
     color: rgba(125, 120, 120, 1);
+    font-size: x-large;
 }
 
 .categories-box a:hover {
