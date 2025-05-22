@@ -92,3 +92,37 @@ body {
 .dropdown-content a:hover {background-color: #ddd;}
 .dropdown:hover .dropdown-content {display: block;}
 .dropdown:hover .dropbtn {background-color: #3e8e41;}
+
+.hourly-scroll {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1em;
+  padding-top: 1em;
+}
+
+.hour-box {
+  background-color: rgba(255, 255, 255, 0.15);
+  border-radius: 8px;
+  padding: 0.75em;
+  text-align: center;
+  font-size: 0.9em;
+  color: white;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.hour-time {
+  font-weight: 600;
+  font-size: 1em;
+  margin-bottom: 0.3em;
+}
+
+.hour-speed {
+  font-size: 0.9em;
+  color: #add8e6;
+}
+
+.hour-dir {
+  font-size: 0.8em;
+  color: #ddd;
+}
+

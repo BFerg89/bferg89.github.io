@@ -11,13 +11,15 @@ const stations = [
 const dropdownContent = document.getElementById('stationDropdown');
 const stationButton = document.getElementById('stationButton');
 
+
 stations.forEach(station => {
   const a = document.createElement('a');
   a.href = '#';
   a.textContent = station.name;
   a.addEventListener('click', () => {
-    stationButton.textContent = station.name;  // Update the button label
+    stationButton.textContent = station.name;
     fetchWindData(station.lat, station.lon);
+    fetchHourlyWind(station.lat, station.lon);
   });
   dropdownContent.appendChild(a);
 });
@@ -38,6 +40,34 @@ function fetchWindData(lat, lon) {
       document.getElementById('currentDirection').textContent = `Direction: ${directionCompass}`;
     })
     .catch(err => console.error('Error:', err));
+}
+
+function fetchHourlyWind(lat, lon) {
+  const url = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${opnKey}&units=metric`;
+
+  fetch(url)
+    .then(response => response.json())
+    .then(data => {
+      const hourlyDataContainer = document.getElementById('hourlyData');
+      hourlyDataContainer.innerHTML = '';
+
+      for (let i = 0; i < 8; i++) {
+        const entry = data.list[i];
+        const time = new Date(entry.dt * 1000).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+        const speedKnots = (entry.wind.speed * 1.94384).toFixed(1);
+        const direction = degToCompass(entry.wind.deg);
+
+        const box = document.createElement('div');
+        box.className = 'hour-box';
+        box.innerHTML = `
+          <div class="hour-time">${time}</div>
+          <div class="hour-speed">${speedKnots} kt</div>
+          <div class="hour-dir">${direction}</div>
+        `;
+        hourlyDataContainer.appendChild(box);
+      }
+    })
+    .catch(err => console.error('Hourly fetch error:', err));
 }
 
 function degToCompass(deg) {
