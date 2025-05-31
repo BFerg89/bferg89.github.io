@@ -11,4 +11,6 @@ jobs:
     steps:
       - name: Call Edge Function
         run: |
-          curl -X POST "https://afsauvbufltrpcmufhjl.functions.supabase.co/update_weather"
+          curl -X POST "https://afsauvbufltrpcmufhjl.functions.supabase.co/update_weather" \
+          -H "Authorization: Bearer ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}"
+
