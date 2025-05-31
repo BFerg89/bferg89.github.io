@@ -16,7 +16,11 @@ jobs:
         run: |
           curl -L "https://github.com/supabase/cli/releases/download/v2.23.4/supabase_2.23.4_linux_x86_64.tar.gz" -o supabase.tar.gz
           tar -xzf supabase.tar.gz
+          chmod +x supabase
           sudo mv supabase /usr/local/bin/
+
+      - name: Check Download
+        run: file supabase.tar.gz
 
       - name: Deploy Edge Functions
         env:
