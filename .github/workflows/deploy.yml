@@ -12,8 +12,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Install Supabase CLI
-        run: npm install -g supabase
+      - name: Download Supabase CLI
+        run: |
+          curl -L "https://github.com/supabase/cli/releases/download/v2.23.4/supabase_2.23.4_linux_amd64.tar.gz" -o supabase.tar.gz
+          tar -xzf supabase.tar.gz
+          sudo mv supabase /usr/local/bin/
 
       - name: Deploy Edge Functions
         env:
