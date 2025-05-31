@@ -1,0 +1,14 @@
+name: Scheduled Weather Update
+
+on:
+  schedule:
+    - cron: '0 * * * *'  # Every hour. Adjust as needed!
+  workflow_dispatch:      # Allows you to run it manually from GitHub UI.
+
+jobs:
+  call-edge-function:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Call Edge Function
+        run: |
+          curl -X POST "https://afsauvbufltrpcmufhjl.functions.supabase.co/update_weather"
