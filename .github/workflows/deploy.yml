@@ -1,30 +1,20 @@
-name: Deploy Supabase Edge Functions
+name: Deploy Function
 
 on:
   push:
     branches:
       - master
+  workflow_dispatch:
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
-
+    env:
+      SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
+      PROJECT_ID: ${{ secrets.SUPABASE_PROJECT_REF }}
     steps:
       - uses: actions/checkout@v4
-
-      - name: Download Supabase CLI
-        run: |
-          curl -L "https://github.com/supabase/cli/releases/download/v2.23.4/supabase_2.23.4_linux_x86_64.tar.gz" -o supabase.tar.gz
-          tar -xzf supabase.tar.gz
-          chmod +x supabase
-          sudo mv supabase /usr/local/bin/
-
-      - name: Check Download (Debug)
-        run: file supabase.tar.gz
-
-      - name: Deploy Edge Function
-        env:
-          SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
-          SUPABASE_PROJECT_REF: ${{ secrets.SUPABASE_PROJECT_REF }}
-        run: |
-          supabase functions deploy update_weather --project-ref $SUPABASE_PROJECT_REF
+      - uses: supabase/setup-cli@v1
+        with:
+          version: latest
+      - run: supabase functions deploy update_weather --project-ref $PROJECT_ID
