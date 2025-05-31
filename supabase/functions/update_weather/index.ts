@@ -17,25 +17,25 @@ serve(async (req) => {
   }
 
   try {
-    // 1. Fetch current weather
+    //Fetch current weather
     const weatherRes = await fetch(`https://api.tomorrow.io/v4/weather/realtime?location=${encodeURIComponent(city)}&apikey=${tmrApiKey}`);
     const weatherData = await weatherRes.json();
     const temp = Math.round(weatherData.data.values.temperature);
     const conditionCode = weatherData.data.values.weatherCode;
 
-    // 2. Fetch today's high/low
+    //Fetch today's high/low
     const forecastRes = await fetch(`https://api.tomorrow.io/v4/weather/forecast?location=${encodeURIComponent(city)}&apikey=${tmrApiKey}`);
     const forecastData = await forecastRes.json();
     const today = forecastData.timelines.daily[0].values;
     const high = Math.round(today.temperatureMax);
     const low = Math.round(today.temperatureMin);
 
-    // 3. Fetch AQI
+    //Fetch AQI
     const airRes = await fetch(`https://api.airvisual.com/v2/nearest_city?key=${airKey}`);
     const airData = await airRes.json();
     const airQuality = airData.data.current.pollution.aqius;
 
-    // 4. Fetch 5-day forecast (from Visual Crossing)
+    //Fetch 5-day forecast (from Visual Crossing)
     const vcRes = await fetch(`https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/Vancouver?unitGroup=metric&key=${visApiKey}&contentType=json`);
     const vcData = await vcRes.json();
     const forecastDays = vcData.days.slice(1, 6); // Next 5 days
@@ -44,14 +44,14 @@ serve(async (req) => {
       date: day.datetime,
       high: Math.round(day.tempmax),
       low: Math.round(day.tempmin),
-      code: day.icon || null,        // change this as needed for your frontend
-      text: day.conditions || null   // change as needed
+      code: day.icon || null,        
+      text: day.conditions || null   
     }));
 
     // 5. Update the Supabase table
     const supabase = createClient(supabaseUrl, supabaseKey);
     const { error } = await supabase
-      .from('main_page') // <-- Replace with your actual table name if different
+      .from('HomePage') 
       .upsert([{
         id: 1,
         temp: temp,
